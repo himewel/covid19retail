@@ -1,0 +1,11 @@
+covid19retail:
+    type: dbt
+    dag:
+        start_date: 2020-01-01
+        description: A DAG wrapper to a dbt workflow
+        schedule_interval: @daily
+    dbt_conf:
+        manifest_json: /usr/local/airflow/dags/dbt/target/manifest.json
+        dbt_dir: /usr/local/airflow/dags/dbt
+        global_cli_flags: --no-write-json
+        target: prod
