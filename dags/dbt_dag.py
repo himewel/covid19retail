@@ -1,24 +1,23 @@
-import datetime
 import json
 from glob import glob
 
 from airflow import DAG
-from airflow.operators.bash_operator import BashOperator
-from airflow.utils.dates import datetime, timedelta
+from airflow.operators.bash import BashOperator
+import yaml
 
 
 class DBTDagParser:
-    def __init__(dag_name, dag_conf, dbt_conf):
+    def __init__(self, dag_name, dag_conf, dbt_conf):
         self.dag_name = dag_name
         self.dag_conf = dag_conf
         self.dbt_conf = dbt_conf
 
-    def load_manifest(local_filepath):
+    def load_manifest(self, local_filepath):
         with open(local_filepath) as f:
             data = json.load(f)
         return data
 
-    def make_dbt_task(dag, node, dbt_verb):
+    def make_dbt_task(self, dag, node, dbt_verb):
         """Returns an Airflow operator either run and test an individual model"""
         DBT_DIR = self.dbt_conf["dbt_dir"]
         GLOBAL_CLI_FLAGS = self.dbt_conf["global_cli_flags"]
@@ -39,17 +38,17 @@ class DBTDagParser:
 
         return dbt_task
 
-    def make_dag():
+    def make_dag(self):
         dag = DAG(self.dag_name, **self.dag_conf)
-        data = load_manifest(self.dbt_conf["manifest_json"])
+        data = self.load_manifest(self.dbt_conf["manifest_json"])
 
         dbt_tasks = {}
         for node in data["nodes"].keys():
             if node.split(".")[0] == "model":
                 node_test = node.replace("model", "test")
 
-                dbt_tasks[node] = make_dbt_task(node, "run")
-                dbt_tasks[node_test] = make_dbt_task(node, "test")
+                dbt_tasks[node] = self.make_dbt_task(node, "run")
+                dbt_tasks[node_test] = self.make_dbt_task(node, "test")
 
         for node in data["nodes"].keys():
             if node.split(".")[0] == "model":
@@ -60,7 +59,6 @@ class DBTDagParser:
 
                 # Set all model -> model dependencies
                 for upstream_node in data["nodes"][node]["depends_on"]["nodes"]:
-
                     upstream_node_type = upstream_node.split(".")[0]
                     if upstream_node_type == "model":
                         dbt_tasks[upstream_node] >> dbt_tasks[node]
@@ -68,16 +66,20 @@ class DBTDagParser:
 
 
 if __name__ == "__main__":
-    for template in glob("./templates/*.yaml"):
+    for template in glob("/opt/airflow/dags/templates/*.yaml"):
         with open(template, "r") as stream:
-            dag_template = yaml.load(template)
+            dag_template = yaml.load(stream, Loader=yaml.FullLoader)
 
         for dag_name, config in dag_template.items():
             if config["type"] != "dbt":
                 break
 
-        globals()[dag_name] = DBTDagParser(
-            dag_name=dag_name,
-            dag_conf=config["dag_conf"],
-            dbt_conf=config["dbt_conf"],
-        )
+            try:
+                dag_parser = DBTDagParser(
+                    dag_name=dag_name,
+                    dag_conf=config["dag_conf"],
+                    dbt_conf=config["dbt_conf"],
+                )
+                globals()[dag_name] = dag_parser.make_dag()
+            except Exception as e:
+                print(f"Fail to parse {template} with the following exception: {e}")
