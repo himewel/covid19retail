@@ -1,0 +1,13 @@
+covid19retail:
+  outputs:
+    dev:
+      dataset: app
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      location: US
+      method: oauth
+      priority: interactive
+      project: weather-297102
+      threads: 8
+      type: bigquery
+  target: dev
