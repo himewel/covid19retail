@@ -1,7 +1,7 @@
 version: '3.9'
 x-airflow-common:
     &airflow-common
-    image: apache/airflow:2.3.0
+    image: apache/airflow:2.3.0-python3.8
     environment:
         &airflow-common-env
         AIRFLOW__CORE__EXECUTOR: LocalExecutor

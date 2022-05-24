@@ -47,8 +47,8 @@ class DBTDagParser:
             if node.split(".")[0] == "model":
                 node_test = node.replace("model", "test")
 
-                dbt_tasks[node] = self.make_dbt_task(node, "run")
-                dbt_tasks[node_test] = self.make_dbt_task(node, "test")
+                dbt_tasks[node] = self.make_dbt_task(dag, node, "run")
+                dbt_tasks[node_test] = self.make_dbt_task(dag, node, "test")
 
         for node in data["nodes"].keys():
             if node.split(".")[0] == "model":
@@ -65,21 +65,21 @@ class DBTDagParser:
         return dag
 
 
-if __name__ == "__main__":
-    for template in glob("/opt/airflow/dags/templates/*.yaml"):
-        with open(template, "r") as stream:
-            dag_template = yaml.load(stream, Loader=yaml.FullLoader)
+for template in glob("/opt/airflow/dags/templates/*.yaml"):
+    with open(template, "r") as stream:
+        dag_template = yaml.load(stream, Loader=yaml.FullLoader)
 
-        for dag_name, config in dag_template.items():
-            if config["type"] != "dbt":
-                break
+    for dag_name, config in dag_template.items():
+        if config["type"] != "dbt":
+            break
 
-            try:
-                dag_parser = DBTDagParser(
-                    dag_name=dag_name,
-                    dag_conf=config["dag_conf"],
-                    dbt_conf=config["dbt_conf"],
-                )
-                globals()[dag_name] = dag_parser.make_dag()
-            except Exception as e:
-                print(f"Fail to parse {template} with the following exception: {e}")
+        try:
+            dag_parser = DBTDagParser(
+                dag_name=dag_name,
+                dag_conf=config["dag_conf"],
+                dbt_conf=config["dbt_conf"],
+            )
+            globals()[dag_name] = dag_parser.make_dag()
+            print(f"Succeed to parse {template}: {globals()[dag_name]}")
+        except Exception as e:
+            print(f"Fail to parse {template} with the following exception: {e}")
