@@ -6,5 +6,6 @@ profile: 'covid19retail'
 
 models:
   covid19retail:
-    example:
-      +materialized: view
+    trusted:
+      +materialized: incremental
+      +schema: trusted

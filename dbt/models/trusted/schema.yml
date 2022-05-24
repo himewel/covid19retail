@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: covid19_open_data
+    description: "An extraction from BigQuery public datasets to the ODS layer"
+
+  - name: iowa_liquor_sales
+    description: "An extraction from BigQuery public datasets to the ODS layer"

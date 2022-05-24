@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: iowa_liquor
+    database: bigquery-public-data
+    schema: iowa_liquor_sales
+    tables:
+      - name: sales
+
+  - name: covid19_open_data
+    database: bigquery-public-data
+    schema: covid19_open_data
+    tables:
+      - name: covid19_open_data
