@@ -33,11 +33,14 @@ class DBTDagParser:
             dbt-ol {GLOBAL_CLI_FLAGS} {dbt_verb} \
                 --profiles-dir {PROFILE_DIR} \
                 --target {TARGET} \
-                --models {model} >> {task_name}.txt \
-            if grep -q ERROR\=0 {task_name}.txt; then \
-                exit 0 \
-            else \
-                exit 1 \
+                --models {model} 2>&1 \
+            | tee /tmp/{task_name}.txt
+            if grep -e ERROR\=0 /tmp/{task_name}.txt; then
+                rm -rf /tmp/{task_name}.txt
+                exit 0
+            else
+                rm -rf /tmp/{task_name}.txt
+                exit 1
             fi
         """
 
