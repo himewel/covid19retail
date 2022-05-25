@@ -13,6 +13,10 @@ models:
       - name: country_code
         tests:
           - not_null
+      - name: surrogate_key
+        tests:
+          - not_null
+          - unique
 
   - name: iowa_liquor_sales
     description: "An extraction from BigQuery public datasets to the ODS layer"
@@ -23,3 +27,7 @@ models:
       - name: county
         tests:
           - not_null
+      - name: invoice_and_item_number
+        tests:
+          - not_null
+          - unique

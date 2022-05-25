@@ -13,9 +13,10 @@ case "$mode" in
       up --detach
     ;;
   dbt)
-    echo "Building dbt project..."
     cd dbt
+    echo "Creating catalog.json..."
     dbt docs generate --profiles-dir profiles
+    echo "Creating manifest.json..."
     dbt compile --profiles-dir profiles
     ;;
   stop)
@@ -30,10 +31,12 @@ case "$mode" in
     echo "An empty param will start Airflow, Marquez and Superset together"
     ;;
   *)
-    echo "Building dbt project..."
     cd dbt
+    echo "Creating catalog.json..."
     dbt docs generate --profiles-dir profiles
+    echo "Creating manifest.json..."
     dbt compile --profiles-dir profiles
+
     cd ..
     echo "Starting all services..."
     docker-compose \

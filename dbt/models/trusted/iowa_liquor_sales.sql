@@ -1,6 +1,6 @@
-{{ config(materialized='incremental') }}
+{{ config(materialized='incremental', unique_key='invoice_and_item_number') }}
 
-SELECT *
-FROM {{ source('iowa_liquor', 'sales') }}
-WHERE county IS NOT NULL
-  AND date = '{{ env_var("EXECUTION_DATE", "") }}'
+  SELECT *
+  FROM {{ source('iowa_liquor', 'sales') }}
+  WHERE county IS NOT NULL
+    AND date = '{{ env_var("EXECUTION_DATE", "") }}'
