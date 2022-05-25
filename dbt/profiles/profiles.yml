@@ -1,11 +1,12 @@
 covid19retail:
   outputs:
-    dev:
+    prd:
       schema: covid19retail
       job_execution_timeout_seconds: 300
       job_retries: 1
       location: US
-      method: oauth
+      method: service-account
+      keyfile: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"
       priority: interactive
       project: covid19-retail-090522
       threads: 8
