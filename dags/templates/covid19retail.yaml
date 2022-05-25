@@ -9,5 +9,5 @@ covid19retail:
         manifest_json: /opt/dbt/target/manifest.json
         dbt_dir: /opt/dbt
         profile_dir: /opt/dbt/profiles
-        global_cli_flags: --no-use-colors --fail-fast
+        global_cli_flags: --fail-fast
         target: prd

@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 x-airflow-common:
     &airflow-common
     build: docker
@@ -10,7 +10,7 @@ x-airflow-common:
         AIRFLOW__WEBSERVER__SECRET_KEY: \xcf\xbae\x18\xfa\x93\xe0\x8e\xbb\xe1u\xd4\xca\x1fV\x97
         AIRFLOW__LINEAGE__BACKEND: openlineage.lineage_backend.OpenLineageBackend
         OPENLINEAGE_URL: http://marquez-api:5000
-        OPENLINEAGE_NAMESPACE: airflow
+        MARQUEZ_URL: http://marquez-api:5000
         GOOGLE_APPLICATION_CREDENTIALS: /opt/credentials/covid19-retail-090522-773462c5c6bd.json
     volumes:
         - logs:/opt/airflow/logs

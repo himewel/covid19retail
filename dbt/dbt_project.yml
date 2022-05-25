@@ -4,7 +4,7 @@ config-version: 2
 
 profile: 'covid19retail'
 
-target-path: ./target
+target-path: target
 test-paths: [tests]
 
 models:

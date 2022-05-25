@@ -30,7 +30,7 @@ class DBTDagParser:
         task_name = "{{ task_instance_key_str }}"
         bash_command = rf"""
             EXECUTION_DATE={date_execution} \
-            dbt-ol {GLOBAL_CLI_FLAGS} {dbt_verb} \
+            dbt-ol {dbt_verb} {GLOBAL_CLI_FLAGS} \
                 --profiles-dir {PROFILE_DIR} \
                 --target {TARGET} \
                 --models {model} 2>&1 \
