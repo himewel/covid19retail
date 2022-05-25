@@ -4,8 +4,10 @@ covid19retail:
         start_date: 2020-01-01T00:00:00
         description: A DAG wrapper to a dbt workflow
         schedule_interval: '@daily'
+        max_active_runs: 1
     dbt_conf:
         manifest_json: /opt/dbt/target/manifest.json
         dbt_dir: /opt/dbt
-        global_cli_flags: --no-write-json
-        target: prod
+        profile_dir: /opt/dbt/profiles
+        global_cli_flags: --no-use-colors --fail-fast
+        target: prd

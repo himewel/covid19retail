@@ -20,13 +20,25 @@ class DBTDagParser:
     def make_dbt_task(self, dag, node, dbt_verb):
         """Returns an Airflow operator either run and test an individual model"""
         DBT_DIR = self.dbt_conf["dbt_dir"]
-        GLOBAL_CLI_FLAGS = self.dbt_conf["global_cli_flags"]
+        GLOBAL_CLI_FLAGS = self.dbt_conf.get("global_cli_flags", "")
         TARGET = self.dbt_conf["target"]
+        PROFILE_DIR = self.dbt_conf["profile_dir"]
 
         model = node.split(".")[-1]
-        bash_command = f"""
-            cd {DBT_DIR} &&
-            dbt {GLOBAL_CLI_FLAGS} {dbt_verb} --target prod --models {model}
+
+        date_execution = "{{ ds }}"
+        task_name = "{{ task_instance_key_str }}"
+        bash_command = rf"""
+            EXECUTION_DATE={date_execution} \
+            dbt-ol {GLOBAL_CLI_FLAGS} {dbt_verb} \
+                --profiles-dir {PROFILE_DIR} \
+                --target {TARGET} \
+                --models {model} >> {task_name}.txt \
+            if grep -q ERROR\=0 {task_name}.txt; then \
+                exit 0 \
+            else \
+                exit 1 \
+            fi
         """
 
         if dbt_verb == "run":
@@ -34,7 +46,12 @@ class DBTDagParser:
         elif dbt_verb == "test":
             task_name = node.replace("model", "test")
 
-        dbt_task = BashOperator(task_id=task_name, bash_command=bash_command, dag=dag)
+        dbt_task = BashOperator(
+            task_id=task_name,
+            bash_command=bash_command,
+            cwd=DBT_DIR,
+            dag=dag,
+        )
 
         return dbt_task
 
@@ -82,4 +99,7 @@ for template in glob("/opt/airflow/dags/templates/*.yaml"):
             globals()[dag_name] = dag_parser.make_dag()
             print(f"Succeed to parse {template}: {globals()[dag_name]}")
         except Exception as e:
-            print(f"Fail to parse {template} with the following exception: {e}")
+            import traceback
+
+            print(f"Fail to parse {template} with the following exception:")
+            traceback.print_exc()
