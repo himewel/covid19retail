@@ -1,22 +1,23 @@
 version: '3.9'
 x-airflow-common:
     &airflow-common
-    image: apache/airflow:2.3.0-python3.8
+    build: docker
     environment:
         &airflow-common-env
         AIRFLOW__CORE__EXECUTOR: LocalExecutor
+        AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
         AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
         AIRFLOW__WEBSERVER__SECRET_KEY: \xcf\xbae\x18\xfa\x93\xe0\x8e\xbb\xe1u\xd4\xca\x1fV\x97
+        AIRFLOW__LINEAGE__BACKEND: openlineage.lineage_backend.OpenLineageBackend
         OPENLINEAGE_URL: http://marquez-api:5000
-        _PIP_ADDITIONAL_REQUIREMENTS: |
-            dbt-bigquery==1.1.0
-            openlineage-airflow==0.8.2
-            openlineage-dbt==0.8.2
+        OPENLINEAGE_NAMESPACE: airflow
+        GOOGLE_APPLICATION_CREDENTIALS: /opt/credentials/covid19-retail-090522-773462c5c6bd.json
     volumes:
         - logs:/opt/airflow/logs
         - ./dags:/opt/airflow/dags
+        - ./credentials:/opt/credentials
         - ./dbt:/opt/dbt
-    user: 50000:0
+    user: 50000:1000
     depends_on:
         &airflow-common-depends-on
         airflow-postgres:
@@ -55,7 +56,6 @@ services:
             _AIRFLOW_WWW_USER_CREATE: true
             _AIRFLOW_WWW_USER_USERNAME: airflow
             _AIRFLOW_WWW_USER_PASSWORD: airflow
-            _PIP_ADDITIONAL_REQUIREMENTS: ''
         user: 0:0
         volumes:
             - ./dags:/sources/dags
