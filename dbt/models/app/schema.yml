@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: "Fact table representing liquor sales at Iowa State"
+    columns:
+      - name: CdInvoice
+        tests:
+          - not_null
+      - name: NuItemNumber
+        tests:
+          - not_null
+      - name: DtSale
+        tests:
+          - not_null
+      - name: CdStore
+        tests:
+          - not_null
+      - name: CdProduct
+        tests:
+          - not_null
+
+  - name: dim_categories
+    description: "Dimension table representing liquor product categories"
+
+  - name: dim_counties
+    description: "Dimension table representing counties at Iowa State"
+
+  - name: dim_products
+    description: "Dimension table representing liquor products"
+
+  - name: dim_stores
+    description: "Dimension table representing liquor stores at Iowa State"
+
+  - name: dim_vendors
+    description: "Dimension table representing liquor product vendors"

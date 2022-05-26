@@ -12,3 +12,6 @@ models:
     trusted:
       +materialized: incremental
       +schema: trusted
+    app:
+      +materialized: table
+      +schema: app
