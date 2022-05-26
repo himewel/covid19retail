@@ -5,6 +5,7 @@ covid19retail:
         description: A DAG wrapper to a dbt workflow
         schedule_interval: '@daily'
         max_active_runs: 1
+        max_active_tasks: 1
     dbt_conf:
         manifest_json: /opt/dbt/target/manifest.json
         dbt_dir: /opt/dbt
