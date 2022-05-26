@@ -80,8 +80,9 @@ class DBTDagParser:
                 # Set all model -> model dependencies
                 for upstream_node in data["nodes"][node]["depends_on"]["nodes"]:
                     upstream_node_type = upstream_node.split(".")[0]
+                    upstream_node_test = upstream_node.replace("model", "test")
                     if upstream_node_type == "model":
-                        dbt_tasks[upstream_node] >> dbt_tasks[node]
+                        dbt_tasks[upstream_node_test] >> dbt_tasks[node]
         return dag
 
 
