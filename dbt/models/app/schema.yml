@@ -4,7 +4,7 @@ models:
   - name: fact_sales
     description: "Fact table representing liquor sales at Iowa State"
     columns:
-      - name: CdInvoiceItemNumber
+      - name: CdSale
         tests:
           - not_null
           - unique
@@ -14,13 +14,35 @@ models:
       - name: NuItemNumber
         tests:
           - not_null
-      - name: DtSale
+      - name: CdDate
         tests:
           - not_null
       - name: CdStore
         tests:
           - not_null
       - name: CdProduct
+        tests:
+          - not_null
+
+  - name: fact_events
+    description: "Fact table representing Covid19 events at Iowa State"
+    columns:
+      - name: CdEvent
+        tests:
+          - not_null
+          - unique
+      - name: CdCounty
+        tests:
+          - not_null
+
+  - name: fact_reports
+    description: "Fact table representing Covid19 stats at Iowa State"
+    columns:
+      - name: CdReport
+        tests:
+          - not_null
+          - unique
+      - name: CdCounty
         tests:
           - not_null
 
@@ -55,11 +77,22 @@ models:
         tests:
           - not_null
           - unique
+      - name: CdCounty
+        tests:
+          - not_null
 
   - name: dim_vendors
     description: "Dimension table representing liquor product vendors"
     columns:
       - name: CdVendor
+        tests:
+          - not_null
+          - unique
+
+  - name: dim_dates
+    description: "Dimension table representing dates"
+    columns:
+      - name: CdDate
         tests:
           - not_null
           - unique
