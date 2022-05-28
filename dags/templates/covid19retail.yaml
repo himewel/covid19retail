@@ -1,14 +1,17 @@
 covid19retail:
-    type: dbt
-    dag_conf:
-        start_date: 2020-01-01T00:00:00
-        description: A DAG wrapper to a dbt workflow
-        schedule_interval: '@daily'
-        max_active_runs: 1
-        max_active_tasks: 1
-    dbt_conf:
-        manifest_json: /opt/dbt/target/manifest.json
-        dbt_dir: /opt/dbt
-        profile_dir: /opt/dbt/profiles
-        global_cli_flags: --fail-fast
-        target: prd
+  type: dbt
+  dag_conf:
+    start_date: 2020-01-01T00:00:00
+    description: Run DBT models and tests form Covid19Retail project
+    schedule_interval: '@daily'
+    max_active_runs: 1
+    max_active_tasks: 1
+    default_args:
+      depends_on_past: true
+      wait_for_downstream: true
+  dbt_conf:
+    manifest_json: /opt/dbt/target/manifest.json
+    dbt_dir: /opt/dbt
+    profile_dir: /opt/dbt/profiles
+    global_cli_flags: --fail-fast
+    target: prd

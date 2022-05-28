@@ -68,14 +68,16 @@ class DBTDagParser:
         dbt_tasks = {}
         for node, node_manifest in data["nodes"].items():
             if node.split(".")[0] == "model":
-                schema = node_manifest["config"]["schema"]
-                if schema not in dbt_groups.keys():
+                table_name = node.split(".")[-1]
+                if table_name not in dbt_groups.keys():
                     group = TaskGroup(
-                        schema, tooltip=f"Tasks for schema {schema}", dag=dag
+                        table_name,
+                        tooltip=f"Tasks for model {table_name}",
+                        dag=dag,
                     )
-                    dbt_groups[schema] = group
+                    dbt_groups[table_name] = group
                 else:
-                    group = dbt_groups[schema]
+                    group = dbt_groups[table_name]
 
                 node_test = node.replace("model", "test")
 
