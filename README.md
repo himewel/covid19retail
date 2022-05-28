@@ -21,3 +21,11 @@ Locally, this architecture can run in the followeing endpoints with Docker conta
 With PaaS or serverless services, the following architecture aims to give more details about the implementation using GCP services, Airbyte Cloud, Astronomer platform + Datakin and DBT cloud services:
 
 <img align="center" alt="Cloud architecture" src="./docs/cloud.png" />
+
+The *silver* schema stored in BigQuery is composed of the following tables:
+- iowa_liquor_sales: table extracted from \`bigquery-public-data\`.\`iowa_liquor_sales\`.\`sales\` with information about daily sales of alcooholic products in markets at Iowa, US
+- covid19_open_data: table extracted from \`bigquery-public-data\`.\`covid19_open_data\`.\`covid19_open_data\` with statuses of the Covid19 pandemic also in Iowa, US
+
+The *gold* schema contains tables builded from *silver* tables in a snowflake schema. The following figure illustrates the relationships between tables at the *gold* layer:
+
+<img align="center" alt="Data schema" src="./docs/schema.png" />
