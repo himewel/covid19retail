@@ -3,6 +3,7 @@ from glob import glob
 
 from airflow import DAG
 from airflow.operators.bash import BashOperator
+from airflow.utils.task_group import TaskGroup
 import yaml
 
 
@@ -17,7 +18,7 @@ class DBTDagParser:
             data = json.load(f)
         return data
 
-    def make_dbt_task(self, dag, node, dbt_verb):
+    def make_dbt_task(self, dag, node, dbt_verb, group):
         """Returns an Airflow operator either run and test an individual model"""
         DBT_DIR = self.dbt_conf["dbt_dir"]
         GLOBAL_CLI_FLAGS = self.dbt_conf.get("global_cli_flags", "")
@@ -54,6 +55,7 @@ class DBTDagParser:
             bash_command=bash_command,
             cwd=DBT_DIR,
             dag=dag,
+            task_group=group,
         )
 
         return dbt_task
@@ -62,13 +64,23 @@ class DBTDagParser:
         dag = DAG(self.dag_name, **self.dag_conf)
         data = self.load_manifest(self.dbt_conf["manifest_json"])
 
+        dbt_groups = {}
         dbt_tasks = {}
-        for node in data["nodes"].keys():
+        for node, node_manifest in data["nodes"].items():
             if node.split(".")[0] == "model":
+                schema = node_manifest["config"]["schema"]
+                if schema not in dbt_groups.keys():
+                    group = TaskGroup(
+                        schema, tooltip=f"Tasks for schema {schema}", dag=dag
+                    )
+                    dbt_groups[schema] = group
+                else:
+                    group = dbt_groups[schema]
+
                 node_test = node.replace("model", "test")
 
-                dbt_tasks[node] = self.make_dbt_task(dag, node, "run")
-                dbt_tasks[node_test] = self.make_dbt_task(dag, node, "test")
+                dbt_tasks[node] = self.make_dbt_task(dag, node, "run", group)
+                dbt_tasks[node_test] = self.make_dbt_task(dag, node, "test", group)
 
         for node in data["nodes"].keys():
             if node.split(".")[0] == "model":

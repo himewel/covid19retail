@@ -30,5 +30,6 @@
     covid19_counties.country_code AS CdCountry,
     covid19_counties.country_name AS CdCountryName
   FROM covid19_counties
-  FULL JOIN iowa_counties
+  LEFT JOIN iowa_counties
     ON SUBSTR(LOWER(REGEXP_REPLACE(covid19_counties.subregion2_name, ' County|\'', '')), 0, 10) = iowa_counties.county
+  WHERE iowa_counties.county_number IS NOT NULL
