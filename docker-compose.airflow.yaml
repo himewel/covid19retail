@@ -1,75 +1,75 @@
 version: "3.9"
 x-airflow-common:
-    &airflow-common
-    build: docker
-    environment:
-        &airflow-common-env
-        AIRFLOW__CORE__EXECUTOR: LocalExecutor
-        AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
-        AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
-        AIRFLOW__WEBSERVER__SECRET_KEY: \xcf\xbae\x18\xfa\x93\xe0\x8e\xbb\xe1u\xd4\xca\x1fV\x97
-        AIRFLOW__LINEAGE__BACKEND: openlineage.lineage_backend.OpenLineageBackend
-        OPENLINEAGE_URL: http://marquez-api:5000
-        MARQUEZ_URL: http://marquez-api:5000
-        GOOGLE_APPLICATION_CREDENTIALS: /opt/credentials/covid19-retail-090522-773462c5c6bd.json
-    volumes:
-        - logs:/opt/airflow/logs
-        - ./dags:/opt/airflow/dags
-        - ./credentials:/opt/credentials
-        - ./dbt:/opt/dbt
-    user: 50000:1000
-    depends_on:
-        &airflow-common-depends-on
-        airflow-postgres:
-            condition: service_healthy
-services:
-    airflow-scheduler:
-        <<: *airflow-common
-        command: scheduler
-        depends_on:
-            <<: *airflow-common-depends-on
-            airflow-init:
-                condition: service_completed_successfully
-
-    airflow-webserver:
-        <<: *airflow-common
-        command: webserver
-        depends_on:
-            <<: *airflow-common-depends-on
-            airflow-init:
-                condition: service_completed_successfully
-        ports:
-            - 8080:8080
-
-    airflow-init:
-        <<: *airflow-common
-        command:
-          - -c
-          - |
-            mkdir -p /sources/logs /sources/dags /sources/plugins
-            chown -R "1000:1000" /sources/{logs,dags,plugins}
-            exec /entrypoint airflow version
-        entrypoint: /bin/bash
-        environment:
-            <<: *airflow-common-env
-            _AIRFLOW_DB_UPGRADE: true
-            _AIRFLOW_WWW_USER_CREATE: true
-            _AIRFLOW_WWW_USER_USERNAME: airflow
-            _AIRFLOW_WWW_USER_PASSWORD: airflow
-        user: 0:0
-        volumes:
-            - ./dags:/sources/dags
-
+  &airflow-common
+  build: docker/airflow
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres/airflow
+    AIRFLOW__WEBSERVER__SECRET_KEY: \xcf\xbae\x18\xfa\x93\xe0\x8e\xbb\xe1u\xd4\xca\x1fV\x97
+    AIRFLOW__LINEAGE__BACKEND: openlineage.lineage_backend.OpenLineageBackend
+    OPENLINEAGE_URL: http://marquez-api:5000
+    MARQUEZ_URL: http://marquez-api:5000
+    GOOGLE_APPLICATION_CREDENTIALS: /opt/credentials/covid19-retail-090522-773462c5c6bd.json
+  volumes:
+    - logs:/opt/airflow/logs
+    - ./dags:/opt/airflow/dags
+    - ./credentials:/opt/credentials
+    - ./dbt:/opt/dbt
+  user: 50000:1000
+  depends_on:
+    &airflow-common-depends-on
     airflow-postgres:
-        environment:
-            POSTGRES_USER: airflow
-            POSTGRES_PASSWORD: airflow
-            POSTGRES_DB: airflow
-        healthcheck:
-            test: ["CMD", "pg_isready", "-U", "airflow"]
-            interval: 5s
-            retries: 5
-        image: postgres:14.3-alpine
+      condition: service_healthy
+services:
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+    ports:
+      - 8080:8080
+
+  airflow-init:
+    <<: *airflow-common
+    command:
+      - -c
+      - |
+      mkdir -p /sources/logs /sources/dags /sources/plugins
+      chown -R "1000:1000" /sources/{logs,dags,plugins}
+      exec /entrypoint airflow version
+    entrypoint: /bin/bash
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: true
+      _AIRFLOW_WWW_USER_CREATE: true
+      _AIRFLOW_WWW_USER_USERNAME: airflow
+      _AIRFLOW_WWW_USER_PASSWORD: airflow
+    user: 0:0
+    volumes:
+      - ./dags:/sources/dags
+
+  airflow-postgres:
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 5
+    image: postgres:14.3-alpine
 
 volumes:
-    logs:
+  logs:

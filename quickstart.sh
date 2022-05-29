@@ -19,11 +19,18 @@ case "$mode" in
     echo "Creating manifest.json..."
     dbt compile --profiles-dir profiles
     ;;
+  superset)
+    echo "Starting Apache Superset services..."
+    docker-compose \
+      --file docker-compose.superset.yaml \
+      up --detach
+    ;;
   stop)
     echo "Stopping services..."
     docker-compose \
       --file docker-compose.airflow.yaml \
       --file docker-compose.marquez.yaml \
+      --file docker-compose.superset.yaml \
       stop
     ;;
   help)
@@ -42,6 +49,7 @@ case "$mode" in
     docker-compose \
       --file docker-compose.airflow.yaml \
       --file docker-compose.marquez.yaml \
+      --file docker-compose.superset.yaml \
       up --detach
     ;;
 esac

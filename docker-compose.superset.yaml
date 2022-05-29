@@ -1,0 +1,84 @@
+version: "3.9"
+x-superset-common:
+  &superset-common
+  depends_on:
+    &superset-common-depends-on
+    superset-postgres:
+      condition: service_healthy
+    superset-redis:
+      condition: service_healthy
+  environment:
+    &superset-common-env
+    COMPOSE_PROJECT_NAME: superset
+    DATABASE_DB: superset
+    DATABASE_HOST: superset-postgres
+    DATABASE_PASSWORD: superset
+    DATABASE_USER: superset
+    DATABASE_PORT: 5432
+    DATABASE_DIALECT: postgresql
+    PYTHONPATH: /app/pythonpath:/app/docker/pythonpath_dev
+    REDIS_HOST: superset-redis
+    REDIS_PORT: 6379
+    FLASK_ENV: production
+    SUPERSET_ENV: production
+    CYPRESS_CONFIG: false
+    SUPERSET_PORT: 8088
+    GOOGLE_APPLICATION_CREDENTIALS: /app/credentials/covid19-retail-090522-773462c5c6bd.json
+  build: docker/superset
+  user: root
+  volumes:
+    - ./credentials:/app/credentials
+    - ./dashboards:/app/dashboards
+    - superset_home:/app/superset_home
+services:
+  superset-redis:
+    image: redis:latest
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 5s
+      retries: 5
+
+  superset-postgres:
+    environment:
+      POSTGRES_DB: superset
+      POSTGRES_USER: superset
+      POSTGRES_PASSWORD: superset
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "superset"]
+      interval: 5s
+      retries: 5
+    image: postgres:14.3-alpine
+
+  superset:
+    <<: *superset-common
+    command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
+    depends_on:
+      <<: *superset-common-depends-on
+      superset-init:
+        condition: service_completed_successfully
+    ports:
+      - 8088:8088
+
+  superset-init:
+    <<: *superset-common
+    command: ["/app/docker/docker-init.sh"]
+
+  superset-worker:
+    <<: *superset-common
+    command: ["/app/docker/docker-bootstrap.sh", "worker"]
+    depends_on:
+      <<: *superset-common-depends-on
+      superset-init:
+        condition: service_completed_successfully
+
+  superset-worker-beat:
+    <<: *superset-common
+    command: ["/app/docker/docker-bootstrap.sh", "beat"]
+    depends_on:
+      <<: *superset-common-depends-on
+      superset-init:
+        condition: service_completed_successfully
+
+volumes:
+  superset_home:
+    external: false
