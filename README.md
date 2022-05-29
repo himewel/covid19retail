@@ -29,3 +29,7 @@ The *silver* schema stored in BigQuery is composed of the following tables:
 The *gold* schema contains tables builded from *silver* tables in a snowflake schema. The following figure illustrates the relationships between tables at the *gold* layer:
 
 <img align="center" alt="Data schema" src="./docs/schema.png" />
+
+Finally, the following dashboards are build in Superset:
+
+<img align="center" alt="Sales dashboard" src="./docs/sales-dashboard.png" />

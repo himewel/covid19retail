@@ -1,0 +1,350 @@
+databases:
+- database_name: BigQuery
+  sqlalchemy_uri: bigquery://
+  tables:
+  - columns:
+    - column_name: DsDate
+      extra: '{"warning_markdown":null}'
+      is_dttm: true
+      type: DATE
+    - column_name: QtHospitalBedsPer1000
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: NuAveTempCelsius
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: CdLocationGeometry
+      extra: '{"warning_markdown":null}'
+      type: GEOGRAPHY
+    - column_name: NuMaxTempCelsius
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: NuMinTempCelsius
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: QtVaccineDosesAdministeredJanssen
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtVaccineDosesAdministeredModerna
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtVaccineDosesAdministeredPfizer
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtVaccineDosesAdministered
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuHumanIndexDevelopment
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: QtPopulationDensity
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: VrSalesDollarsTotal
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: InStayAtHomeRequirements
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuAreqSqKm
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InStringencyIndex
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: NuLatitude
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: NuLongitude
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: VrVolumeSoldLitersTotal
+      extra: '{"warning_markdown":null}'
+      type: FLOAT
+    - column_name: QtBottlesSoldTotal
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtCurrentIntensiveCarePatients
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: CdCounty
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: CdCountryName
+      extra: '{"warning_markdown":null}'
+      type: STRING
+    - column_name: CdCountry
+      extra: '{"warning_markdown":null}'
+      type: STRING
+    - column_name: CdDate
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: DsCountyName
+      extra: '{"warning_markdown":null}'
+      type: STRING
+    - column_name: InCancelPublicEvents
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtIntensiveCarePatientsFemale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InFacialCoverings
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtConfirmedFemale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuGdpUsdPerCapita
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtCurrentHospitalizedPatients
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InPublicInformationCampaigns
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InInternationalTravelControls
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtIntensiveCarePatientsMale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtIntensiveCarePatients
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InPublicTransportClosing
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InSchoolClosing
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InContactTracing
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InWorkspaceClosing
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: CdOpenStreetMap
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtConfirmedMale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtCurrentVentilatorPatient
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtConfirmed
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: CdStateName
+      extra: '{"warning_markdown":null}'
+      type: STRING
+    - column_name: CdState
+      extra: '{"warning_markdown":null}'
+      type: STRING
+    - column_name: QtDeceasedFemale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InDebtRelief
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtDeceasedMale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuDayOfWeek
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuDayOfYear
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuWeekDay
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuDay
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtDeceased
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InEmergencyInvestmentInHealthcare
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtHospitalizedPatientsFemale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InFiscalMeasures
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPersonsFullyVaccinatedJanssen
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPersonsFullyVaccinatedModerna
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPersonsFullyVaccinatedPfizer
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPersonsFullyVaccinated
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPopulationFemale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtRecoveredFemale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtTestedFemale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InRestrictionsOnGatherings
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuGdpUsd
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtHospitalizedPatientsMale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtHospitalizedPatients
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InInvestmentInVaccines
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InRestrictionsOnInternalMovement
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InInternationalSupport
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InIncomeSupport
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuIsoWeek
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuIsoYear
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InTestingPolicy
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: InVaccinationPolicy
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuMonth
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPopulationMale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtRecoveredMale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtTestedMale
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuQuarter
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuWeek
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuYear
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPersonsVaccinated
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtVentilatorPatients
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtPopulation
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: QtRecovered
+      extra: '{"warning_markdown":null}'
+      type: INTEGER
+    - column_name: NuMonthYear
+      extra: '{"warning_markdown":null}'
+      type: STRING
+    - column_name: QtTested
+      extra: '{"warning_markdown":null}'
+      type: STRING
+    metrics:
+    - expression: count(*)
+      extra: '{"warning_markdown":""}'
+      metric_name: count
+    schema: covid19retail_app
+    sql: "WITH sales_by_county AS (\n  SELECT\n    sales.CdDate,\n    stores.CdCounty,\n\
+      \    SUM(sales.QtBottlesSold) AS QtBottlesSoldTotal,\n    SUM(sales.VrSalesDollars)\
+      \ AS VrSalesDollarsTotal,\n    SUM(sales.VrVolumeSoldLiters) AS VrVolumeSoldLitersTotal\n\
+      \  FROM covid19retail_app.fact_sales AS sales\n  JOIN covid19retail_app.dim_stores\
+      \ AS stores\n    ON sales.CdStore = stores.CdStore\n  GROUP BY CdDate, CdCounty\n\
+      )\n\nSELECT\n  dates.DsDate,\n  reports.CdCounty,\n  reports.CdDate,\n  QtConfirmed,\n\
+      \  QtDeceased,\n  QtPersonsVaccinated,\n  QtPersonsFullyVaccinated,\n  QtVaccineDosesAdministered,\n\
+      \  QtTested,\n  QtRecovered,\n  QtHospitalizedPatients,\n  QtIntensiveCarePatients,\n\
+      \  QtConfirmedMale,\n  QtConfirmedFemale,\n  QtDeceasedMale,\n  QtDeceasedFemale,\n\
+      \  QtTestedMale,\n  QtTestedFemale,\n  QtHospitalizedPatientsMale,\n  QtHospitalizedPatientsFemale,\n\
+      \  QtIntensiveCarePatientsMale,\n  QtIntensiveCarePatientsFemale,\n  QtRecoveredMale,\n\
+      \  QtRecoveredFemale,\n  QtVentilatorPatients,\n  QtPersonsFullyVaccinatedPfizer,\n\
+      \  QtVaccineDosesAdministeredPfizer,\n  QtPersonsFullyVaccinatedModerna,\n \
+      \ QtVaccineDosesAdministeredModerna,\n  QtPersonsFullyVaccinatedJanssen,\n \
+      \ QtVaccineDosesAdministeredJanssen,\n  QtCurrentHospitalizedPatients,\n  QtCurrentIntensiveCarePatients,\n\
+      \  QtCurrentVentilatorPatient,\n  InSchoolClosing,\n  InWorkspaceClosing,\n\
+      \  InCancelPublicEvents,\n  InRestrictionsOnGatherings,\n  InPublicTransportClosing,\n\
+      \  InStayAtHomeRequirements,\n  InRestrictionsOnInternalMovement,\n  InInternationalTravelControls,\n\
+      \  InIncomeSupport,\n  InDebtRelief,\n  InFiscalMeasures,\n  InInternationalSupport,\n\
+      \  InPublicInformationCampaigns,\n  InTestingPolicy,\n  InContactTracing,\n\
+      \  InEmergencyInvestmentInHealthcare,\n  InInvestmentInVaccines,\n  InFacialCoverings,\n\
+      \  InVaccinationPolicy,\n  InStringencyIndex,\n  NuAveTempCelsius,\n  NuMinTempCelsius,\n\
+      \  NuMaxTempCelsius,\n  QtBottlesSoldTotal,\n  VrSalesDollarsTotal,\n  VrVolumeSoldLitersTotal,\n\
+      \  NuDayOfWeek,\n  NuDay,\n  NuDayOfYear,\n  NuWeekDay,\n  NuWeek,\n  NuIsoWeek,\n\
+      \  NuMonth,\n  NuQuarter,\n  NuYear,\n  NuIsoYear,\n  NuMonthYear,\n  DsCountyName,\n\
+      \  CdState,\n  CdStateName,\n  CdCountry,\n  CdCountryName,\n  QtPopulation,\n\
+      \  QtPopulationMale,\n  QtPopulationFemale,\n  QtPopulationDensity,\n  NuHumanIndexDevelopment,\n\
+      \  NuGdpUsd,\n  NuGdpUsdPerCapita,\n  CdOpenStreetMap,\n  NuLatitude,\n  NuLongitude,\n\
+      \  CdLocationGeometry,\n  NuAreqSqKm,\n  QtHospitalBedsPer1000\nFROM covid19retail_app.fact_reports\
+      \ AS reports\nJOIN covid19retail_app.fact_events AS events\n  ON reports.CdDate\
+      \ = events.CdDate\n    AND reports.CdCounty = events.CdCounty\nLEFT JOIN sales_by_county\
+      \ AS sales\n  ON reports.CdDate = sales.CdDate\n    AND reports.CdCounty = sales.CdCounty\n\
+      JOIN covid19retail_app.dim_dates AS dates\n  ON reports.CdDate = dates.CdDate\n\
+      JOIN covid19retail_app.dim_counties AS counties\n  ON reports.CdCounty = counties.CdCounty\n"
+    table_name: Covid19 and sales by county and date
+  - columns:
+    - column_name: DsDate
+      is_dttm: true
+      type: DATE
+    - column_name: VrSalesDollars
+      type: FLOAT
+    - column_name: VrVolumeSoldLiters
+      type: FLOAT
+    - column_name: QtBottlesSold
+      type: INTEGER
+    - column_name: DsCategoryName
+      type: STRING
+    - column_name: DsCountyName
+      type: STRING
+    - column_name: CdSale
+      type: STRING
+    - column_name: DsProductName
+      type: STRING
+    - column_name: DsStoreName
+      type: STRING
+    - column_name: DsVendorName
+      type: STRING
+    metrics:
+    - expression: count(*)
+      metric_name: count
+    schema: covid19retail_app
+    sql: "SELECT\n  dates.DsDate,\n  counties.DsCountyName,\n  stores.DsStoreName,\n\
+      \  vendors.DsVendorName,\n  categories.DsCategoryName,\n  products.DsProductName,\n\
+      \  sales.CdSale,\n  sales.QtBottlesSold,\n  sales.VrSalesDollars,\n  sales.VrVolumeSoldLiters\n\
+      FROM covid19retail_app.fact_sales AS sales\nJOIN covid19retail_app.dim_stores\
+      \ AS stores\n  ON sales.CdStore = stores.CdStore\nJOIN covid19retail_app.dim_counties\
+      \ AS counties\n  ON stores.CdCounty = counties.CdCounty\nJOIN covid19retail_app.dim_dates\
+      \ AS dates\n  ON sales.CdDate = dates.CdDate\nLEFT JOIN covid19retail_app.dim_products\
+      \ AS products\n  ON sales.CdProduct = products.CdProduct\nLEFT JOIN covid19retail_app.dim_categories\
+      \ AS categories\n  ON products.CdCategory = categories.CdCategory\nLEFT JOIN\
+      \ covid19retail_app.dim_vendors AS vendors\n  ON products.CdVendor = vendors.CdVendor"
+    table_name: Alcohol sales
