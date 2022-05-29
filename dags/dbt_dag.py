@@ -28,9 +28,11 @@ class DBTDagParser:
         model = node.split(".")[-1]
 
         date_execution = "{{ ds }}"
+        next_date_execution = "{{ next_ds }}"
         task_name = "{{ task_instance_key_str }}"
         bash_command = rf"""
-            EXECUTION_DATE={date_execution} \
+            START_DATE={date_execution} \
+            END_DATE={next_date_execution} \
             dbt-ol {dbt_verb} {GLOBAL_CLI_FLAGS} \
                 --profiles-dir {PROFILE_DIR} \
                 --target {TARGET} \
