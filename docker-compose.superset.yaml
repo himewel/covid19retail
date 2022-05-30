@@ -82,3 +82,7 @@ services:
 volumes:
   superset_home:
     external: false
+
+networks:
+  default:
+    name: covid19retail_default

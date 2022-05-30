@@ -46,9 +46,9 @@ services:
     command:
       - -c
       - |
-      mkdir -p /sources/logs /sources/dags /sources/plugins
-      chown -R "1000:1000" /sources/{logs,dags,plugins}
-      exec /entrypoint airflow version
+        mkdir -p /sources/logs /sources/dags /sources/plugins
+        chown -R "1000:1000" /sources/{logs,dags,plugins}
+        exec /entrypoint airflow version
     entrypoint: /bin/bash
     environment:
       <<: *airflow-common-env
@@ -73,3 +73,7 @@ services:
 
 volumes:
   logs:
+
+networks:
+  default:
+    name: covid19retail_default

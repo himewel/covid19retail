@@ -30,3 +30,7 @@ services:
       interval: 5s
       retries: 5
     image: postgres:14.3-alpine
+
+networks:
+  default:
+    name: covid19retail_default
