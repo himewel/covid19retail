@@ -31,9 +31,10 @@ models:
         tests:
           - not_null
           - unique
-      - name: CdCounty
+      - name: CdDate
         tests:
           - not_null
+          - unique
 
   - name: fact_reports
     description: "Fact table representing Covid19 stats at Iowa State"
@@ -43,6 +44,9 @@ models:
           - not_null
           - unique
       - name: CdCounty
+        tests:
+          - not_null
+      - name: CdDate
         tests:
           - not_null
 
