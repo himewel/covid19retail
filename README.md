@@ -8,14 +8,14 @@
 </p>
 
 
-This projects aims to build a *lambda* data architecture using services and technologies from a modern data stack. So, some serverless or PaaS services are prefered than other IaaS services. The same for UI data wrangling services if possible instead of code technologies. The following architecture was developed thinking in this principles and possible main technologies:
+This projects aims to build a *lambda* data architecture using services and technologies from a modern data stack. So, some serverless or PaaS services are preferred than other IaaS services. The same for UI data wrangling services if possible instead of code technologies. The following architecture was developed thinking in this principles and possible main technologies:
 
 <img align="center" alt="Tech architecture" src="./docs/tech.png" />
 
-Locally, this architecture can run in the followeing endpoints with Docker containers:
+Locally, this architecture can run in the following endpoints with Docker containers:
 
-- Marquez: http://localhost:3000
 - Airflow: http://localhost:8080
+- Marquez: http://localhost:3000
 - Superset: http://localhost:8088
 
 With PaaS or serverless services, the following architecture aims to give more details about the implementation using GCP services, Airbyte Cloud, Astronomer platform + Datakin and DBT cloud services:
@@ -26,10 +26,10 @@ The *silver* schema stored in BigQuery is composed of the following tables:
 - iowa_liquor_sales: table extracted from \`bigquery-public-data\`.\`iowa_liquor_sales\`.\`sales\` with information about daily sales of alcooholic products in markets at Iowa, US
 - covid19_open_data: table extracted from \`bigquery-public-data\`.\`covid19_open_data\`.\`covid19_open_data\` with statuses of the Covid19 pandemic also in Iowa, US
 
-The *gold* schema contains tables builded from *silver* tables in a snowflake schema. The following figure illustrates the relationships between tables at the *gold* layer:
+The *gold* schema contains tables build from *silver* tables in a snowflake schema. The following figure illustrates the relationships between tables at the *gold* layer:
 
 <img align="center" alt="Data schema" src="./docs/schema.png" />
 
-Finally, the following dashboards are build in Superset:
+Finally, the following dashboards were build with Superset:
 
 <img align="center" alt="Sales dashboard" src="./docs/sales-dashboard.png" />
