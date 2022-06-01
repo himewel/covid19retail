@@ -5,24 +5,38 @@ models:
     description: "Fact table representing liquor sales at Iowa State"
     columns:
       - name: CdSale
+        description: Unique key for a sale formed by invoice + item number
         tests:
           - not_null
           - unique
       - name: CdInvoice
+        description: Invoice code of a sale
         tests:
           - not_null
       - name: NuItemNumber
+        description: Item number of a sale
         tests:
           - not_null
       - name: CdDate
+        description: Date of the sale
         tests:
           - not_null
       - name: CdStore
+        description: Key for dim_stores
         tests:
           - not_null
       - name: CdProduct
+        description: Key for dim_products
         tests:
           - not_null
+      - name: QtBottlesSold
+        description: Quantity of bottles sold
+      - name: VrSalesDollars
+        description: Vale of the sale for this item
+      - name: VrVolumeSoldLiters
+        description: Volume of the product in liters
+      - name: VrVolumeSoldGalons
+        description: Volume of the product in galons
 
   - name: fact_events
     description: "Fact table representing Covid19 events at Iowa State"
@@ -54,9 +68,12 @@ models:
     description: "Dimension table representing liquor product categories"
     columns:
       - name: CdCategory
+        description: Unique key for a product category
         tests:
           - not_null
           - unique
+      - name: DsCategoryName
+        description: Category name
 
   - name: dim_counties
     description: "Dimension table representing counties at Iowa State"
@@ -70,28 +87,58 @@ models:
     description: "Dimension table representing liquor products"
     columns:
       - name: CdProduct
+        description: Unique key for a product
         tests:
           - not_null
           - unique
+      - name: CdCategory
+        description: Key for dim_categories
+      - name: CdVendor
+        description: Key for dim_vendors
+      - name: DsProductName
+        description: Product name
+      - name: QtPackItems
+        description: Quantity of items in a pack
+      - name: NuBottleVolumeMl
+        description: Volume of a bottle in mililiters
+      - name: VrStateBottleCost
+        description: Value defined by the state for a bottle
+      - name: VrStateBottleRetail
+        description: Value defined by the retail for a bottle
 
   - name: dim_stores
     description: "Dimension table representing liquor stores at Iowa State"
     columns:
       - name: CdStore
+        description: Unique key for a store
         tests:
           - not_null
           - unique
       - name: CdCounty
+        description: Key for dim_counties
         tests:
           - not_null
+      - name: DsStoreName
+        description: Store name
+      - name: DsAddress
+        description: Store address
+      - name: DsCity
+        description: City where the store is located
+      - name: NuZipCode
+        description: Zip code of the store
+      - name: DsStoreLocation
+        description: Description of the store location
 
   - name: dim_vendors
     description: "Dimension table representing liquor product vendors"
     columns:
       - name: CdVendor
+        description: Unique key for a vendor
         tests:
           - not_null
           - unique
+      - name: DsVendorName
+        description: Vendor name
 
   - name: dim_dates
     description: "Dimension table representing dates"
