@@ -1,9 +1,27 @@
-covid19retail:
+covid19retail-monthly:
   type: dbt
   dag_conf:
-    start_date: 2020-01-01T00:00:00
+    start_date: 2021-02-01T00:00:00
     description: Run DBT models and tests form Covid19Retail project
-    schedule_interval: '@daily'
+    schedule_interval: "@monthly"
+    max_active_runs: 1
+    max_active_tasks: 1
+    default_args:
+      depends_on_past: true
+      wait_for_downstream: true
+  dbt_conf:
+    manifest_json: /opt/dbt/target/manifest.json
+    dbt_dir: /opt/dbt
+    profile_dir: /opt/dbt/profiles
+    global_cli_flags: --fail-fast
+    target: prd
+
+covid19retail-yearly:
+  type: dbt
+  dag_conf:
+    start_date: 2021-01-01T00:00:00
+    description: Run DBT models and tests form Covid19Retail project
+    schedule_interval: '@yearly'
     max_active_runs: 1
     max_active_tasks: 1
     default_args:
