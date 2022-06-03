@@ -4,9 +4,9 @@
     SHA1(CONCAT(counties.CdCounty, covid19.date)) AS CdReport,
     counties.CdCounty,
   	dates.CdDate,
-  	covid19.new_confirmed AS QtConfirmed,
-  	covid19.new_deceased AS QtDeceased,
-    covid19.new_persons_fully_vaccinated AS QtPersonsFullyVaccinated,
+  	IFNULL(covid19.new_confirmed, 0) AS QtConfirmed,
+  	IFNULL(covid19.new_deceased, 0) AS QtDeceased,
+    IFNULL(covid19.new_persons_fully_vaccinated, 0) AS QtPersonsFullyVaccinated,
     covid19.average_temperature_celsius AS NuAveTempCelsius,
     covid19.minimum_temperature_celsius AS NuMinTempCelsius,
     covid19.maximum_temperature_celsius AS NuMaxTempCelsius

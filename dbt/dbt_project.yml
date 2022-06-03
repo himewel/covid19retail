@@ -1,8 +1,8 @@
-name: 'covid19retail'
-version: '1.0.0'
+name: covid19retail
+version: 1.0.0
 config-version: 2
 
-profile: 'covid19retail'
+profile: covid19retail
 
 target-path: target
 test-paths: [tests]
