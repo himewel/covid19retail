@@ -33,3 +33,5 @@ The *gold* schema contains tables build from *silver* tables in a snowflake sche
 Finally, the following dashboards were build with Superset:
 
 <img align="center" alt="Sales dashboard" src="./docs/sales-dashboard.png" />
+
+<img align="center" alt="Covid19 dashboard" src="./docs/covid19-dashboard.png" />
