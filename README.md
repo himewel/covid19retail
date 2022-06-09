@@ -30,7 +30,15 @@ The *gold* schema contains tables build from *silver* tables in a snowflake sche
 
 <img align="center" alt="Data schema" src="./docs/schema.png" />
 
-Finally, the following dashboards were build with Superset:
+To achieve this schema, the dbt tasks are organized as the following format:
+
+<img align="center" alt="dbt workflow" src="./docs/dbt-workflow.png" />
+
+In Marquez we can see this data lineage visualization:
+
+<img align="center" alt="Marquez data lineage" src="./docs/marquez.png" />
+
+Finally, the following dashboards were built with Superset:
 
 <img align="center" alt="Sales dashboard" src="./docs/sales-dashboard.png" />
 
