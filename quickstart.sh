@@ -11,6 +11,9 @@ case "$mode" in
       --file docker-compose.airflow.yaml \
       --file docker-compose.marquez.yaml \
       up --detach
+    echo "Check it:"
+    echo "  Airflow: http://localhost:8080"
+    echo "  Marquez: http://localhost:3000"
     ;;
   dbt)
     cd dbt
@@ -24,6 +27,7 @@ case "$mode" in
     docker-compose \
       --file docker-compose.superset.yaml \
       up --detach
+    echo "Superset: http://localhost:8000"
     ;;
   stop)
     echo "Stopping services..."
@@ -34,7 +38,7 @@ case "$mode" in
       stop
     ;;
   help)
-    echo "Choose a group of services to start [airflow|dbt|stop]..."
+    echo "Choose a group of services to start [airflow|dbt|superset|stop]..."
     echo "An empty param will start Airflow, Marquez and Superset together"
     ;;
   *)
@@ -51,5 +55,9 @@ case "$mode" in
       --file docker-compose.marquez.yaml \
       --file docker-compose.superset.yaml \
       up --detach
+    echo "Check it:"
+    echo "  Airflow: http://localhost:8080"
+    echo "  Marquez: http://localhost:3000"
+    echo "  Superset: http://localhost:8000"
     ;;
 esac
