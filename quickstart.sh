@@ -27,7 +27,7 @@ case "$mode" in
     docker-compose \
       --file docker-compose.superset.yaml \
       up --detach
-    echo "Superset: http://localhost:8000"
+    echo "Superset: http://localhost:8088"
     ;;
   stop)
     echo "Stopping services..."
@@ -58,6 +58,6 @@ case "$mode" in
     echo "Check it:"
     echo "  Airflow: http://localhost:8080"
     echo "  Marquez: http://localhost:3000"
-    echo "  Superset: http://localhost:8000"
+    echo "  Superset: http://localhost:8088"
     ;;
 esac
